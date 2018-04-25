@@ -7,4 +7,5 @@
 * [Scala String](String.md)
 * [Scala Loop](Loop.md)
 * [Scala date](Date.md)
+* [Scala regex](Regex.md)
 * [Intellij](Intellij.md)
