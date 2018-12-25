@@ -26,6 +26,24 @@ val set = Set(1,2,3) //元素不能重复
 val colors = Map("red" -> "#FF0000", "azure" -> "#F0FFFF") //scala中的Map类似python的字典
 ```
 
+`WrappedArray` wraps an `Array` to give it extra functionality.  
+
+This allows an array to be wrapped so it can be used in places where some generic collection type like `Seq` is required. 
+
+**在Scala中，数组Array是一种特殊的collection。数组可以隐式转换为WrappedArray，其为Seq的子类。反之可以使用Traversable提供的toArray方法将WrappedArray转换为数组。** 
+
+<u>J即wrappedarray作为数组转换为序列时使用。</u>
+
+```scala
+scala> val a1 = Array(1, 2, 3)
+a1: Array[Int] = Array(1, 2, 3)
+
+scala> val seq: Seq[Int] = a1
+seq: Seq[Int] = WrappedArray(1, 2, 3)
+```
+
+
+
 ## 3.map函数：dataframe中不常用
 
 // def map\[U\](f: (T) ⇒ U)(implicit arg0: ClassTag[U]): RDD[U]
@@ -61,15 +79,17 @@ val movies = sc.textFile("oss://milano/input/movies.dat").map { line =>
 
  **reducebykey(\_+\_)返回也是pairrdd**
 
+```linux
 // rdd的reduce二元操作，可以从scala的reduce得到启发：
-// scala> val list = List(1,2,3,4,5)
-// list: List[Int] = List(1, 2, 3, 4, 5)
-// scala> list.reduce(_ - _)
-// res29: Int = -13
+scala> val list = List(1,2,3,4,5)
+list: List[Int] = List(1, 2, 3, 4, 5)
+scala> list.reduce(_ - _)
+res29: Int = -13 //可以看出，得到的结果和reduceLeft的结果是一样的
 // 1-2 = -1
 // -1-3 = -4
 // -4-4 = -8
 // -8-5 = -13
+```
 
 ##5.Option[T]
 **Option[T] 是一个类型为 T 的可选值的容器。「我会想办法回传一个T，但也可能没有T给你」。**
@@ -90,6 +110,42 @@ result match {
   case None => println("Failed.")
 }
 ```
+
+Option类型的值通常作为Scala集合类型（List,Map等）操作的返回类型。比如Map的get方法： 
+
+```scala
+scala> val capitals = Map("France"->"Paris", "Japan"->"Tokyo", "China"->"Beijing")
+capitals: scala.collection.immutable.Map[String,String] = Map(France -> Paris, Japan -> Tokyo, China -> Beijing)
+
+scala> capitals get "France"
+res0: Option[String] = Some(Paris)
+
+scala> capitals get "North Pole"
+res1: Option[String] = None
+
+
+scala> capitals get "North Pole" get
+warning: there was one feature warning; re-run with -feature for details
+java.util.NoSuchElementException: None.get
+  at scala.None$.get(Option.scala:347)
+  at scala.None$.get(Option.scala:345)
+  ... 33 elided
+
+scala> capitals get "France" get
+warning: there was one feature warning; re-run with -feature for details
+res3: String = Paris
+
+scala> (capitals get "North Pole") getOrElse "Oops"
+res7: String = Oops
+
+scala> capitals get "France" getOrElse "Oops"
+res8: String = Paris
+```
+
+Option有两个子类别，Some和None。当程序回传Some的时候，代表这个函式成功地给了你一个String，而你可以透过get()函数拿到那个String，如果程序返回的是None，则代表没有字符串可以给你。 
+在返回None，也就是没有String给你的时候，如果你还硬要调用get()来取得 String 的话，Scala一样是会抛出一个NoSuchElementException异常给你的。 
+
+我们也可以选用另外一个方法，getOrElse。这个方法在这个Option是Some的实例时返回对应的值，而在是None的实例时返回传入的参数。换句话说，传入getOrElse的参数实际上是默认返回值。
 
 **<u>[T]实际上用于许多不指定类型的函数中，来表示哪个是类型参数</u>**
 

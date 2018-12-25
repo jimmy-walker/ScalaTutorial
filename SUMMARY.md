@@ -3,6 +3,7 @@
 * [Setup](Setup.md)
 * [Basic syntax](Basic-syntax.md)
 * [Syntactic sugar](Syntactic-sugar.md)
+* [Scala function format](Function_format.md)
 * [Scala function](Function.md)
 * [Scala List](List.md)
 * [Scala String](String.md)
