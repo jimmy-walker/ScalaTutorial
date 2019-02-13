@@ -76,6 +76,8 @@ Version，正如字面意思，就是本项目的迭代版本的信息，**不�
 
 **<u>7）运行程序：任意位置右键单击-Run '程序名称'。</u>**
 
+**<u>8）打包：右边栏中选中"maven projects"，选中"Lifecycle"，先点击"clean"，然后再点击"install"。保存在target文件夹下。</u>**
+
 
 ## References
 - [Scala中包含义](http://www.cnblogs.com/sunddenly/p/4436897.html)
