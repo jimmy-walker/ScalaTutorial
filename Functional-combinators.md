@@ -32,15 +32,15 @@ List("A","B","C")
 ```scala
 val scid = Seq("39612569::0:2728:0:1,32100650::0:2730:0:2,32218352::0:2730:0:3,32042828::0:2730:0:4,105894131::0:2730:0:5,32144418::0:2728:0:6,40288371::0:2728:0:7", "32029511::0:2730:0:8,32218351::0:2728:0:9", "32029500::0:2730:0:8,32029511::0:2728:0:8")
 
-scid.map(_.split(",")).
-flatten.
+scid.map(_.split(",")). //生成list of array，即 Seq[Array[String]]
+flatten. //将List中的Array进行展开
 map(_.split(":")).
-map((i:Array[String]) => (i(5), i(0))).
+map((i:Array[String]) => (i(5), i(0))). //将Seq[Array[String]]变成Seq[(String, String)]
 groupBy(_._1).
 values.
 map((i:Seq[(String, String)]) => i.groupBy(identity).mapValues{_.length}.maxBy(_._2)._1).
 map((i:(String, String))  => Map(i._1.toInt -> i._2)).
-reduce(_ ++ _)
+reduce(_ ++ _) //将list of map变成一个map
 ```
 
 
