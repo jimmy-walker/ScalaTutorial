@@ -14,16 +14,36 @@ CO思想怎么理解呢？CO更像是搭积木，我们有各种积木（即组�
 
 map方法可以将某个函数应用到集合中的每个元素并产出其结果的集合。举例：
 
-```
+```scala
 val names = List("a","b","c")
 names.map(_.toUpperCase)
 ```
 
 得到结果
 
-```
+```scala
 List("A","B","C")
 ```
+
+注意map使用时关键需要知道其中每一项的内容和格式，注意下面中map配合解析的情况。
+
+```scala
+
+```
+
+```scala
+scid.map(_.split(",")).
+flatten.
+map(_.split(":")).
+map((i:Array[String]) => (i(5), i(0))).
+groupBy(_._1).
+values.
+map((i:Seq[(String, String)]) => i.groupBy(identity).mapValues{_.length}.maxBy(_._2)._1).
+map((i:(String, String))  => Map(i._1.toInt -> i._2)).
+reduce(_ ++ _)
+```
+
+
 
 ##flatmap（常用于嵌套list中）
 
@@ -120,7 +140,7 @@ m.mapValues(_ * 5)
 res0: scala.collection.immutable.Map[String,Int] = Map(a -> 10, b -> 15)
 ```
 
-## reference
+## Reference
 
 - [scala school](https://twitter.github.io/scala_school/collections.html)
 - [scala函数组合器](https://blog.csdn.net/springlustre/article/details/52882205)
