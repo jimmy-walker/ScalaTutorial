@@ -43,6 +43,20 @@ map((i:(String, String))  => Map(i._1.toInt -> i._2)).
 reduce(_ ++ _) //将list of map变成一个map
 ```
 
+如果遇到复杂的，则采用**case需要搭配花括号**：
+
+```scala
+val m1 = Map((3,5) -> "geeks", (4,6) -> "for", (4,7) -> "for")
+m1.toList.map{case (i, s) => (i._1, i._2, s)}
+```
+
+另外对于将Map转换为tuple，实际上map已经是tuple了。**所以可以直接像上面一样使用toList，然后再根据要求调整顺序。**
+
+```scala
+scala> "b" -> 2
+res0: (String, Int) = (b,2) // Implicitly converted to a Tuple
+```
+
 
 
 ##flatmap（常用于嵌套list中）
