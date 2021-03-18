@@ -78,7 +78,30 @@ Version，正如字面意思，就是本项目的迭代版本的信息，**不�
 
 **<u>8）打包：右边栏中选中"maven projects"，选中"Lifecycle"，先点击"clean"，然后再点击"install"。保存在target文件夹下。</u>**
 
+## 4.常用操作
+
+### 查看maven格式
+
+mvn网页中会列出相关的一些支持信息，以及maven的写法。
+
+https://mvnrepository.com/artifact/ml.dmlc/xgboost4j
+
+```
+<!-- https://mvnrepository.com/artifact/ml.dmlc/xgboost4j -->
+<dependency>
+    <groupId>ml.dmlc</groupId>
+    <artifactId>xgboost4j_2.11</artifactId>
+    <version>1.1.2</version>
+</dependency>
+```
+
+### maven编译完后，导出jar包
+
+在intellij中编辑完pom文件后，进入工程pom.xml 所在的目录下，执行如下命令
+
+`mvn dependency:copy-dependencies`
 
 ## References
+
 - [Scala中包含义](http://www.cnblogs.com/sunddenly/p/4436897.html)
 - [降低耦合性的一个方法是模块化](http://wiki.jikexueyuan.com/project/scala-development-guide/use-package.html)
