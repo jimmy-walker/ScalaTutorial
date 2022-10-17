@@ -101,6 +101,13 @@ https://mvnrepository.com/artifact/ml.dmlc/xgboost4j
 
 `mvn dependency:copy-dependencies`
 
+### 编译问题
+
+IDEA中maven项目每次都要在Rebuild Project才会打包成功问题。
+如果直接clean，再install，就会报错：Object hankcs is not a member of package
+需要先clean，然后Rebuild Project，再install。
+后续再细查原因。
+
 ## References
 
 - [Scala中包含义](http://www.cnblogs.com/sunddenly/p/4436897.html)
